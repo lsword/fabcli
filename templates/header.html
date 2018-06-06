@@ -1,0 +1,111 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+{{ define "header" }}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>INSPINIA | Dashboard</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="/assets/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="/assets/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                  <!--
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="/assets/img/profile_small.jpg" />
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">Profile</a></li>
+                                <li><a href="contacts.html">Contacts</a></li>
+                                <li><a href="mailbox.html">Mailbox</a></li>
+                                <li class="divider"></li>
+                                <li><a href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                  -->
+                    <li id="sidebar-menu-dashboard">
+                        <a href="/"><i class="fa fa-dashboard"></i> <span class="nav-label">控制台</span></a>
+                    </li>
+                    <li id="sidebar-menu-network">
+                        <a href="network.html"><i class="fa fa-server"></i> <span class="nav-label">节点</span></a>
+                    </li>
+                    <li id="sidebar-menu-blocks">
+                        <a href="blocks.html"><i class="fa fa-cube"></i> <span class="nav-label">区块</span></a>
+                    </li>
+                    <li id="sidebar-menu-transactions">
+                        <a href="transactions.html"><i class="fa fa-list-alt"></i> <span class="nav-label">交易</span></a>
+                    </li>
+                    <li id="sidebar-menu-chaincodes">
+                        <a href="chaincodes.html"><i class="fa fa-handshake-o"></i> <span class="nav-label">合约</span></a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+          <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+              <div class="navbar-header">
+                <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+              </div>
+              <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">欢迎使用Fabric管理系统</span>
+                </li>
+                <li class="dropdown">
+                  <div class="btn-group">
+                    <button id="btn-channel" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">mychannel<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" class="font-bold">mychannel</a></li>
+                      <!--
+                      <li><a href="#" class="font-bold">Another action</a></li>
+                      <li><a href="#">Something else here</a></li>
+                      -->
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+              </ul>
+            </div>
+
+{{ end }}

@@ -1,0 +1,143 @@
+{{ template "header" }}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>控制台</h2>
+    <ol class="breadcrumb">
+      <li>
+      <a href="/">主页</a>
+      </li>
+      <li class="active">
+      <strong>控制台</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <div class="widget style1 navy-bg">
+      <div class="row">
+        <div class="col-xs-6">
+          <i class="fa fa-cube fa-5x"></i>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span> 区块数量 </span>
+          <h2 id="h2-blockcount" class="font-bold">33</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="widget style1 lazur-bg">
+      <div class="row">
+        <div class="col-xs-6">
+          <i class="fa fa-list-alt fa-5x"></i>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span> 交易数量 </span>
+          <h2 id="h2-txcount" class="font-bold">0</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="widget style1 blue-bg">
+      <div class="row">
+        <div class="col-xs-6">
+          <i class="fa fa-server fa-5x"></i>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span> 节点数量 </span>
+          <h2 id="h2-peercount" class="font-bold">0</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="widget style1 yellow-bg">
+      <div class="row">
+        <div class="col-xs-6">
+          <i class="fa fa-handshake-o fa-5x"></i>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span> 合约数量 </span>
+          <h2 id="h2-cccount" class="font-bold">0</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="/assets/js/jquery-3.1.1.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Flot -->
+<script src="/assets/js/plugins/flot/jquery.flot.js"></script>
+<script src="/assets/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/assets/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="/assets/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="/assets/js/plugins/flot/jquery.flot.pie.js"></script>
+
+<!-- Peity -->
+<script src="/assets/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="/assets/js/demo/peity-demo.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="/assets/js/inspinia.js"></script>
+<script src="/assets/js/plugins/pace/pace.min.js"></script>
+
+<!-- jQuery UI -->
+<script src="/assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- GITTER -->
+<script src="/assets/js/plugins/gritter/jquery.gritter.min.js"></script>
+
+<!-- Sparkline -->
+<script src="/assets/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- Sparkline demo data  -->
+<script src="/assets/js/demo/sparkline-demo.js"></script>
+
+<!-- ChartJS-->
+<script src="/assets/js/plugins/chartJs/Chart.min.js"></script>
+
+<!-- Toastr -->
+<!--
+<script src="/assets/js/plugins/toastr/toastr.min.js"></script>
+-->
+
+
+<script>
+$(document).ready(function() {
+  $("#sidebar-menu-dashboard").addClass("active")
+  $.get("/resmgmt/querychannels",function(data,status){
+    res = JSON.parse(data)
+    console.log(res.channels[0].channel_id)
+    $("#btn-channel").text(res.channels[0].channel_id)
+  });
+  $.get("/ajax/blockcount/mychannel",function(data,status){
+    $("#h2-blockcount").text(data)
+  });
+  $.get("/ajax/txcount/mychannel",function(data,status){
+    $("#h2-txcount").text(data)
+  });
+  $.get("/channel/querypeers",function(data,status){
+    jsonData = JSON.parse(data)
+    $("#h2-peercount").text(jsonData.length)
+  });
+  $.get("/resmgmt/queryinstalledchaincodes",function(data,status){
+    jsonData = JSON.parse(data)
+    $("#h2-cccount").text(jsonData.chaincodes.length)
+  });
+})
+
+</script>
+</body>
+</html>
