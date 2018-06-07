@@ -14,39 +14,26 @@
   </div>
 </div>
 
-<div id="apptable_wrapper" class="dataTables_wrapper form-inline no-footer">
-<table id="peertable" class="table table-striped table-bordered table-hover dataTable no-footer">
-  <thead>
-    <tr>
-      <th>URL</th>
-      <th>MSPID</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-</div>
-<!--
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>URL</th>
-      <th>MSPID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>peer1</td>
-      <td>grpcs://127.0.0.1:7051</td>
-    </tr>
-    <tr>
-      <td>peer2</td>
-      <td>grpcs://127.0.0.1:8051</td>
-    </tr>
-  </tbody>
-</table>
--->
-
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Peer节点列表</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="table-responsive">
+            <table id="peertable" class="table table-striped table-bordered table-hover dataTable no-footer">
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -138,5 +125,5 @@ $.get("/channel/querypeers",function(data,status){
 });
 
 </script>
-</body>
-</html>
+
+{{ template "footer" }}
