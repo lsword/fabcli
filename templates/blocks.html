@@ -29,12 +29,40 @@
         <div class="ibox-content">
           <div class="table-responsive">
             <table id="blocktable" class="table table-striped table-bordered table-hover dataTable no-footer">
+              <thead>
+        		    <tr>
+        			  <th>源IP</th>
+        			  <th>源端口</th>
+        			  <th>目的IP</th>
+        			  <th>目的端口</th>
+        			  <th></th>
+        			</tr>
+        		  </thead>
+        		  <tbody>
+        		  </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal-dialog modal-lg">
+<div class="modal-content animated bounceInRight">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<i class="fa fa-cube modal-icon"></i>
+<h4 class="modal-title">区块信息</h4>
+</div>
+<div class="modal-body">
+<div class="row">
+<div id="json"></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <!-- Mainly scripts -->
@@ -83,11 +111,19 @@
 <!-- Custom and plugin javascript -->
 <script src="/assets/js/inspinia.js"></script>
 
+<script type="text/javascript" src="/assets/js/jquery.jsonview.js"></script>
+
+
 <script>
 $(document).ready(function() {
   $("#sidebar-menu-blocks").addClass("active")
 })
 
+function blockdetail(blocknum) {
+  $.get("/ledger/queryblock/"+blocknum,function(data,status){
+    $('#json').JSONView(data, { collapsed: true });
+  });
+}
 var datatable;
 datatable = $('#blocktable').dataTable( {
     "bProcessing": true,
@@ -114,21 +150,13 @@ datatable = $('#blocktable').dataTable( {
             "mData" : "prehash",
             "sTitle" : "前一区块哈希值",
             "sDefaultContent" : ""
-          /*
         }, {
             "mData" : "",
-            "sTitle" : "",
+            "sTitle" : "操作",
             "sDefaultContent" : "",
-            fnRender: function (oObj) {
-                return "<div class='action-buttons'><a class='blue' href='/mediafile/detail?" +
-                            "src_ip=" + oObj['aData']['src_ip'] +
-                            "&src_port=" + oObj['aData']['src_port'] +
-                            "&dst_ip=" + oObj['aData']['dst_ip'] +
-                            "&dst_port=" + oObj['aData']['dst_port'] +
-                            "&record_time=" + oObj['aData']['record_time'] +
-                            "'><i class='ace-icon fa fa-search-plus bigger-130'></i></a></div>";
+            "mRender": function (data, type, alldata) {
+                return "<button class='btn btn-primary btn-circle' type='button' data-toggle='modal' data-target='#myModal' onclick='blockdetail(" +alldata['blocknum']+ ")'><i class='fa fa-list'></i> </button>";
             }
-            */
         }
     ],
     "aaSorting": [],
