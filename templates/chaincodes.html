@@ -69,7 +69,7 @@
   </div>
 </div>
 
-<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal inmodal" id="execModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
 <div class="modal-dialog modal-lg">
 <div class="modal-content animated bounceInRight">
 <div class="modal-header">
@@ -84,7 +84,30 @@
 </div>
 </div>
 <div class="modal-footer">
-<button id="ladda-btn" class="ladda-button btn btn-primary" data-style="expand-left" onclick="ccexec()">执行</button>
+<button id="ladda-btn-exec" class="ladda-button btn btn-primary" data-style="expand-left" onclick="ccexec()">执行</button>
+<button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal inmodal" id="queryModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal-dialog modal-lg">
+<div class="modal-content animated bounceInRight">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<i class="fa fa-search modal-icon"></i>
+<h4 id="cc_name" class="modal-title">mycc</h4>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="form-group">
+  <label>查询参数</label><input id="cc_args_query" type="text" value="a" class="form-control">
+</div>
+</div>
+<div class="modal-footer">
+<button id="ladda-btn-query" class="ladda-button btn btn-primary" data-style="expand-left" onclick="ccquery()">执行</button>
 <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
 </div>
 </div>
@@ -143,17 +166,8 @@
 <script>
 $(document).ready(function() {
   $("#sidebar-menu-chaincodes").addClass("active")
-  Ladda.bind( '#ladda-btn',{ timeout: 5000 });
-  var l = $( '#ladda-btn' ).ladda();
-  l.click(function(){
-    // Start loading
-    l.ladda( 'start' );
-    // Do something in backend and then stop ladda
-    // setTimeout() is only for demo purpose
-    setTimeout(function(){
-      l.ladda('stop');
-    },5000)
-  });
+  Ladda.bind( '#ladda-btn-exec',{ timeout: 5000 });
+  Ladda.bind( '#ladda-btn-query',{ timeout: 5000 });
 })
 
 
@@ -162,19 +176,45 @@ function ccexec() {
   console.log(ccname)
   ccargs = $("#cc_args").val()
   console.log(ccargs)
-  var l = $( '#ladda-btn' ).ladda();
-  l.ladda( 'start' );
-  $.get("/channel/execute/" + ccname+ "/" + ccargs, function(data,status){
-      console.log(data)
-      console.log(status)
-      swal({
-          title: "交易成功",
-          //text: "You clicked the button!",
-          confirmButtonText: "确定",
-          type: "success"
-      });
+  var l = $( '#ladda-btn-exec' ).ladda();
+  l.click(function(){
+    // Start loading
+    l.ladda( 'start' );
+    $.get("/channel/execute/" + ccname+ "/" + ccargs, function(data,status){
+        console.log(data)
+        console.log(status)
+        swal({
+            title: "交易成功",
+            //text: "You clicked the button!",
+            confirmButtonText: "确定",
+            type: "success"
+        });
+    });
+    l.ladda('stop');
   });
-  l.ladda('stop');
+}
+
+function ccquery() {
+  ccname = $("#cc_name").text()
+  console.log(ccname)
+  ccargs = $("#cc_args_query").val()
+  console.log(ccargs)
+  var l = $( '#ladda-btn-query' ).ladda();
+  l.click(function(){
+    // Start loading
+    l.ladda( 'start' );
+    $.get("/channel/query/" + ccname+ "/" + ccargs, function(data,status){
+        console.log(data)
+        console.log(status)
+        swal({
+            title: "查询成功",
+            text: data,
+            confirmButtonText: "确定",
+            type: "success"
+        });
+        l.ladda('stop');
+    });
+  });
 }
 
 $.get("/resmgmt/queryinstalledchaincodes",function(data,status){
@@ -265,7 +305,7 @@ $.get("/resmgmt/queryinstantiatedchaincodes",function(data,status){
               "sTitle" : "操作",
               "sDefaultContent" : "",
               "mRender": function (data, type, alldata) {
-                  return "<button class='btn btn-primary btn-circle' type='button' data-toggle='modal' data-target='#myModal' ><i class='fa fa-gear'></i> </button>";
+                  return "<button class='btn btn-primary btn-circle' type='button' data-toggle='modal' data-target='#execModal' ><i class='fa fa-gear'></i> </button><button class='btn btn-primary btn-circle' type='button' data-toggle='modal' data-target='#queryModal' ><i class='fa fa-search'></i> </button>";
               }
           }
       ],
@@ -288,7 +328,6 @@ $.get("/resmgmt/queryinstantiatedchaincodes",function(data,status){
       "bFilter":false,
   });
 });
-
 </script>
 
 {{ template "footer" }}
