@@ -172,9 +172,9 @@ $(document).ready(function() {
 
 
 function ccexec() {
-  ccname = $("#cc_name").text()
+  var ccname = $("#cc_name").text()
   console.log(ccname)
-  ccargs = $("#cc_args").val()
+  var ccargs = $("#cc_args").val()
   console.log(ccargs)
   var l = $( '#ladda-btn-exec' ).ladda();
   l.click(function(){
@@ -189,8 +189,8 @@ function ccexec() {
             confirmButtonText: "确定",
             type: "success"
         });
+        l.ladda('stop');
     });
-    l.ladda('stop');
   });
 }
 
