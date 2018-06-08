@@ -294,8 +294,8 @@ organizations:
     # runtime network. Fabric-CA is a special certificate authority that provides a REST APIs for
     # dynamic certificate management (enroll, revoke, re-enroll). The following section is only for
     # Fabric-CA servers.
-    certificateAuthorities:
-      - ca.org1.example.com
+#    certificateAuthorities:
+#      - ca.org1.example.com
 
   # the profile will contain public information about organizations other than the one it belongs to.
   # These are necessary information to make transaction lifecycles work, including MSP IDs and
@@ -312,8 +312,8 @@ organizations:
       - peer0.org2.example.com
       - peer1.org2.example.com
 
-    certificateAuthorities:
-      - ca.org2.example.com
+#    certificateAuthorities:
+#      - ca.org2.example.com
 
   ordererorg:
     mspid: OrdererMSP
@@ -321,8 +321,8 @@ organizations:
     # This org's MSP store (absolute path or relative to client.cryptoconfig)
     cryptoPath:  ordererOrganizations/example.com/users/admin@example.com/msp
 
-    certificateAuthorities:
-      - ca.example.com
+#    certificateAuthorities:
+#      - ca.example.com
 
 #
 # List of orderers to send transaction and channel create/update requests to. For the time
@@ -449,46 +449,46 @@ peers:
 # certificate management to be done via REST APIs. Application may choose to use a standard
 # Certificate Authority instead of Fabric-CA, in which case this section would not be specified.
 #
-certificateAuthorities:
-  ca.org1.example.com:
-    url: https://10.1.81.252:7054
-    tlsCACerts:
-      # Comma-Separated list of paths
-      #path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/ca_root.pem
-      path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
-      # Client key and cert for SSL handshake with Fabric CA
-      client:
-        key:
-          path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/ca/9e9dcf68b70670578750caf6d2fedcc0b5fcc9b30c5ab650b409e510ed82dfc0_sk
-        cert:
-          path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
-
-    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
-    # needed to enroll and invoke new users.
-    registrar:
-      enrollId: admin
-      enrollSecret: adminpw
-    # [Optional] The optional name of the CA.
-    caName: ca.org1.example.com
-  ca.org2.example.com:
-    url: https://10.1.81.252:8054
-    tlsCACerts:
-      # Comma-Separated list of paths
-      path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/ca_root.pem
-      # Client key and cert for SSL handshake with Fabric CA
-      client:
-        key:
-          path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/client/client_fabric_client-key.pem
-        cert:
-          path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/client/client_fabric_client.pem
-
-     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
-     # needed to enroll and invoke new users.
-    registrar:
-      enrollId: admin
-      enrollSecret: adminpw
-    # [Optional] The optional name of the CA.
-    caName: ca.org2.example.com
+#certificateAuthorities:
+#  ca.org1.example.com:
+#    url: https://10.1.81.252:7054
+#    tlsCACerts:
+#      # Comma-Separated list of paths
+#      #path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/ca_root.pem
+#      path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+#      # Client key and cert for SSL handshake with Fabric CA
+#      client:
+#        key:
+#          path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/ca/ed16542ede636c0adf5c5874998be889173b282d2296cadf12baaf0b8f767874_sk
+#        cert:
+#          path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+#
+#    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
+#    # needed to enroll and invoke new users.
+#    registrar:
+#      enrollId: admin
+#      enrollSecret: adminpw
+#    # [Optional] The optional name of the CA.
+#    caName: ca.org1.example.com
+#  ca.org2.example.com:
+#    url: https://10.1.81.252:8054
+#    tlsCACerts:
+#      # Comma-Separated list of paths
+#      path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/ca_root.pem
+#      # Client key and cert for SSL handshake with Fabric CA
+#      client:
+#        key:
+#          path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/client/client_fabric_client-key.pem
+#        cert:
+#          path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/test/fixtures/fabricca/tls/certs/client/client_fabric_client.pem
+#
+#     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
+#     # needed to enroll and invoke new users.
+#    registrar:
+#      enrollId: admin
+#      enrollSecret: adminpw
+#    # [Optional] The optional name of the CA.
+#    caName: ca.org2.example.com
 
 # EntityMatchers enable substitution of network hostnames with static configurations
  # so that properties can be mapped. Regex can be used for this purpose
@@ -569,11 +569,11 @@ entityMatchers:
       sslTargetOverrideUrlSubstitutionExp: $1.example.$2
       mappedHost: orderer.example.com
 
-  certificateAuthorities:
-    - pattern: (\w+).org1.example.(\w+)
-      urlSubstitutionExp: https://10.1.81.252:7054
-      mappedHost: ca.org1.example.com
-
-    - pattern: (\w+).org2.example.(\w+)
-      urlSubstitutionExp: https://10.1.81.252:8054
-      mappedHost: ca.org2.example.com
+#  certificateAuthorities:
+#    - pattern: (\w+).org1.example.(\w+)
+#      urlSubstitutionExp: https://10.1.81.252:7054
+#      mappedHost: ca.org1.example.com
+#
+#    - pattern: (\w+).org2.example.(\w+)
+#      urlSubstitutionExp: https://10.1.81.252:8054
+#      mappedHost: ca.org2.example.com

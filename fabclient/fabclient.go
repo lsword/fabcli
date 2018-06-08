@@ -37,7 +37,7 @@ import (
 	fpu "github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/protos/utils"
 	//selection "github.com/hyperledger/fabric-sdk-go/pkg/client/common/selection/dynamicselection"
 	"github.com/hyperledger/fabric-sdk-go/pkg/common/errors/retry"
-	"github.com/hyperledger/fabric-sdk-go/pkg/client/common/discovery/dynamicdiscovery"
+	//"github.com/hyperledger/fabric-sdk-go/pkg/client/common/discovery/dynamicdiscovery"
   "github.com/hyperledger/fabric-sdk-go/pkg/fabsdk/factory/defsvc"
 
 	"liujian/fabcli/common/log"
@@ -92,14 +92,14 @@ type DynamicDiscoveryProviderFactory struct {
 }
 
 // CreateDiscoveryProvider returns a new dynamic discovery provider
-func (f *DynamicDiscoveryProviderFactory) CreateDiscoveryProvider(config fab.EndpointConfig) (fab.DiscoveryProvider, error) {
-	return dynamicdiscovery.New(config), nil
-}
+//func (f *DynamicDiscoveryProviderFactory) CreateDiscoveryProvider(config fab.EndpointConfig) (fab.DiscoveryProvider, error) {
+//	return dynamicdiscovery.New(config), nil
+//}
 
 // CreateLocalDiscoveryProvider returns a new local dynamic discovery provider
-func (f *DynamicDiscoveryProviderFactory) CreateLocalDiscoveryProvider(config fab.EndpointConfig) (fab.LocalDiscoveryProvider, error) {
-	return dynamicdiscovery.New(config), nil
-}
+//func (f *DynamicDiscoveryProviderFactory) CreateLocalDiscoveryProvider(config fab.EndpointConfig) (fab.LocalDiscoveryProvider, error) {
+	//return dynamicdiscovery.New(config), nil
+//}
 
 func ChannelQueryPeers() string {
 	//chProvider := fclient.sdk.ChannelContext("mychannel", fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
@@ -109,7 +109,12 @@ func ChannelQueryPeers() string {
 		fmt.Printf("chProvider error:", err)
 	}
 
-	peers, err := chCtx.DiscoveryService().GetPeers()
+	//peers, err := chCtx.DiscoveryService().GetPeers()
+	discovery, err := chCtx.ChannelService().Discovery()
+	if err != nil {
+		fmt.Printf("getpeers error:", err)
+	}
+	peers, err := discovery.GetPeers()
 	if err != nil {
 		fmt.Printf("getpeers error:", err)
 	}
@@ -796,7 +801,7 @@ func Init() error {
 
 	sdkContext := sdk.Context()
 	ctx, _ := sdkContext()
-	networkConfig, _ := ctx.EndpointConfig().NetworkConfig()
+	networkConfig := ctx.EndpointConfig().NetworkConfig()
 	//configBackends, _ := sdk.Config()
 	//endpointConfig, _ := pkgfab.ConfigFromBackend(configBackends)
 	//fmt.Println("----->")
