@@ -29,6 +29,8 @@ import (
 	//"github.com/hyperledger/fabric-sdk-go/pkg/fab"
 	//"github.com/hyperledger/fabric-sdk-go/pkg/msp"
 	rwsetutil "github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/rwsetutil"
+	//contextImpl "github.com/hyperledger/fabric-sdk-go/pkg/context"
+
 
 	fpc "github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
 	//"github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/protos/ledger/rwset"
@@ -102,8 +104,7 @@ type DynamicDiscoveryProviderFactory struct {
 //}
 
 func ChannelQueryPeers() string {
-	//chProvider := fclient.sdk.ChannelContext("mychannel", fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
-	chProvider := fclient.sdk.ChannelContext("mychannel")
+	chProvider := fclient.sdk.ChannelContext("mychannel", fabsdk.WithUser("Admin"), fabsdk.WithOrg("org1"))
 	chCtx, err := chProvider()
 	if err != nil {
 		fmt.Printf("chProvider error:", err)
@@ -118,6 +119,24 @@ func ChannelQueryPeers() string {
 	if err != nil {
 		fmt.Printf("getpeers error:", err)
 	}
+
+	/*
+	chCtx, err := contextImpl.NewChannel(
+		func() (context.Client, error) {
+			return rc.ctx, nil
+		},
+		channelID,
+	)
+	if err != nil {
+		return nil, errors.WithMessage(err, "failed to create channel context")
+	}
+
+	// per channel discovery service
+	discovery, err := chCtx.ChannelService().Discovery()
+	if err != nil {
+		return nil, errors.WithMessage(err, "failed to get discovery service")
+	}
+	*/
 
 	var peerarray []Peer
 
@@ -741,7 +760,7 @@ func Init() error {
 		return err
 	}
 
-	clientChannelContext := sdk.ChannelContext("mychannel", fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
+	clientChannelContext := sdk.ChannelContext("mychannel", fabsdk.WithUser("Admin"), fabsdk.WithOrg("org1"))
 
 	channelClient, err := channel.New(clientChannelContext)
 	if err != nil {
@@ -761,13 +780,13 @@ func Init() error {
 		return err
 	}
 
-	clientContext := sdk.Context(fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
+	clientContext := sdk.Context(fabsdk.WithUser("Admin"), fabsdk.WithOrg("org1"))
 	resmgmtClient, err := resmgmt.New(clientContext)
 	if err != nil {
 		fmt.Printf("Failed to create new resource management client: %s", err)
 	}
 
-	sysClientContext := sdk.Context(fabsdk.WithUser("admin"), fabsdk.WithOrg("ordererorg"))
+	sysClientContext := sdk.Context(fabsdk.WithUser("Admin"), fabsdk.WithOrg("ordererorg"))
 	fmt.Println("====================>\n")
 
 	sysResmgmtClient, err := resmgmt.New(sysClientContext)
