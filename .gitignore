@@ -1,3 +1,5 @@
 fabcli
 fabcli.db
 ./log/
+./channel-artifacts/
+./crypto-config/
