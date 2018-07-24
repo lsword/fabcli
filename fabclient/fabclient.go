@@ -102,8 +102,8 @@ type DynamicDiscoveryProviderFactory struct {
 //}
 
 func ChannelQueryPeers() string {
-	//chProvider := fclient.sdk.ChannelContext("mychannel", fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
-	chProvider := fclient.sdk.ChannelContext("mychannel")
+	chProvider := fclient.sdk.ChannelContext("mychannel", fabsdk.WithUser("Admin"), fabsdk.WithOrg("org1"))
+	//chProvider := fclient.sdk.ChannelContext("mychannel")
 	chCtx, err := chProvider()
 	if err != nil {
 		fmt.Printf("chProvider error:", err)
@@ -706,14 +706,15 @@ func dealEvent() {
 	}
 }
 func Init() error {
-	blockDB, err := sql.Open("sqlite3", "/Users/liujian/code/gopath/src/liujian/fabcli/fabcli.db")
+	blockDB, err := sql.Open("sqlite3", "./fabcli.db")
 	if err != nil {
 		fmt.Sprintf("open block db error\n")
 		return err
 	}
 	fclient.blockDB = blockDB
 
-	configProvider := config.FromFile("/Users/liujian/code/gopath/src/liujian/fabcli/config.yaml")
+	//configProvider := config.FromFile("./config.yaml")
+	configProvider := config.FromFile("/home/ubuntu/gocode/src/liujian/fabcli/config.yaml")
 	//configBackend, err := config.FromFile("/Users/liujian/code/gopath/src/liujian/fabcli/config.yaml")()
 	//configBackend, err := configProvider()
 	//if err != nil {
@@ -737,15 +738,15 @@ func Init() error {
 		//fabsdk.WithServicePkg(&DynamicDiscoveryProviderFactory{})
 		//fabsdk.WithServicePkg(&DynamicSelectionProviderFactory{ChannelUsers: []selection.ChannelUser{mychannelUser}}))
 	if err != nil {
-		fmt.Sprintf("Failed to init sdk: %s", err)
+		fmt.Println("Failed to init sdk: ", err)
 		return err
 	}
 
-	clientChannelContext := sdk.ChannelContext("mychannel", fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
+	clientChannelContext := sdk.ChannelContext("mychannel", fabsdk.WithUser("Admin"), fabsdk.WithOrg("org1"))
 
 	channelClient, err := channel.New(clientChannelContext)
 	if err != nil {
-		fmt.Sprintf("Failed to create new channel client: %s", err)
+		fmt.Println("Failed to create new channel client: ", err)
 		return err
 	}
 
@@ -761,13 +762,13 @@ func Init() error {
 		return err
 	}
 
-	clientContext := sdk.Context(fabsdk.WithUser("admin"), fabsdk.WithOrg("org1"))
+	clientContext := sdk.Context(fabsdk.WithUser("Admin"), fabsdk.WithOrg("org1"))
 	resmgmtClient, err := resmgmt.New(clientContext)
 	if err != nil {
 		fmt.Printf("Failed to create new resource management client: %s", err)
 	}
 
-	sysClientContext := sdk.Context(fabsdk.WithUser("admin"), fabsdk.WithOrg("ordererorg"))
+	sysClientContext := sdk.Context(fabsdk.WithUser("Admin"), fabsdk.WithOrg("ordererorg"))
 	fmt.Println("====================>\n")
 
 	sysResmgmtClient, err := resmgmt.New(sysClientContext)

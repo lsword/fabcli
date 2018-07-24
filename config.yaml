@@ -69,7 +69,7 @@ client:
   # Root of the MSP directories with keys and certs.
   cryptoconfig:
     #path: ${GOPATH}/src/github.com/hyperledger/fabric-sdk-go/${CRYPTOCONFIG_FIXTURES_PATH}
-    path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config
+    path: ${GOPATH}/src/liujian/fabcli/crypto-config
 
   # Some SDKs support pluggable KV stores, the properties under "credentialStore"
   # are implementation specific
@@ -152,109 +152,13 @@ channels:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
-        ledgerQuery: true
+        eventSource: true
       peer1.org2.example.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
-        ledgerQuery: true
-
-
-    # [Optional]. The application can use these options to perform channel operations like retrieving channel
-    # config etc.
-    policies:
-      #[Optional] options for retrieving channel configuration blocks
-      queryChannelConfig:
-        #[Optional] min number of success responses (from targets/peers)
-        minResponses: 1
-        #[Optional] channel config will be retrieved for these number of random targets
-        maxTargets: 1
-        #[Optional] retry options for query config block
-        retryOpts:
-          #[Optional] number of retry attempts
-          attempts: 5
-          #[Optional] the back off interval for the first retry attempt
-          initialBackoff: 500ms
-          #[Optional] the maximum back off interval for any retry attempt
-          maxBackoff: 5s
-          #[Optional] he factor by which the initial back off period is exponentially incremented
-          backoffFactor: 2.0
-
-  # name of the sys channel
-  testchainid:
-    # Required. list of orderers designated by the application to use for transactions on this
-    # channel. This list can be a result of access control ("org1" can only access "ordererA"), or
-    # operational decisions to share loads from applications among the orderers.  The values must
-    # be "names" of orgs defined under "organizations/peers"
-    orderers:
-      - orderer.example.com
-
-    # Required. list of peers from participating orgs
-    peers:
-      peer0.org1.example.com:
-        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
-        # have the chaincode installed. The app can also use this property to decide which peers
-        # to send the chaincode install request. Default: true
-        endorsingPeer: true
-
-        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
-        # installed. The app can also use this property to decide which peers to send the
-        # chaincode install request. Default: true
-        chaincodeQuery: true
-
-        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
-        # queryBlock(), queryTransaction(), etc. Default: true
-        ledgerQuery: true
-
-        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
-        # produce events but the app typically only needs to connect to one to listen to events.
-        # Default: true
         eventSource: true
 
-
-    # [Optional]. The application can use these options to perform channel operations like retrieving channel
-    # config etc.
-    policies:
-      #[Optional] options for retrieving channel configuration blocks
-      queryChannelConfig:
-        #[Optional] min number of success responses (from targets/peers)
-        minResponses: 1
-        #[Optional] channel config will be retrieved for these number of random targets
-        maxTargets: 1
-        #[Optional] retry options for query config block
-        retryOpts:
-          #[Optional] number of retry attempts
-          attempts: 5
-          #[Optional] the back off interval for the first retry attempt
-          initialBackoff: 500ms
-          #[Optional] the maximum back off interval for any retry attempt
-          maxBackoff: 5s
-          #[Optional] he factor by which the initial back off period is exponentially incremented
-          backoffFactor: 2.0
-  # multi-org test channel
-  orgchannel:
-
-    orderers:
-      - orderer.example.com
-
-    peers:
-      peer0.org1.example.com:
-        endorsingPeer: true
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: true
-
-      peer1.org1.example.com:
-        endorsingPeer: true
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: true
-
-      peer0.org2.example.com:
-        endorsingPeer: true
-        chaincodeQuery: true
-        ledgerQuery: true
-        eventSource: true
 
     # [Optional]. The application can use these options to perform channel operations like retrieving channel
     # config etc.
@@ -283,7 +187,7 @@ organizations:
     mspid: Org1MSP
 
     # This org's MSP store (absolute path or relative to client.cryptoconfig)
-    cryptoPath:  peerOrganizations/org1.example.com/users/admin@org1.example.com/msp
+    cryptoPath:  peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
     peers:
       - peer0.org1.example.com
@@ -306,7 +210,7 @@ organizations:
     mspid: Org2MSP
 
     # This org's MSP store (absolute path or relative to client.cryptoconfig)
-    cryptoPath:  peerOrganizations/org2.example.com/users/admin@org2.example.com/msp
+    cryptoPath:  peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
 
     peers:
       - peer0.org2.example.com
@@ -319,7 +223,7 @@ organizations:
     mspid: OrdererMSP
 
     # This org's MSP store (absolute path or relative to client.cryptoconfig)
-    cryptoPath:  ordererOrganizations/example.com/users/admin@example.com/msp
+    cryptoPath:  ordererOrganizations/example.com/users/Admin@example.com/msp
 
 #    certificateAuthorities:
 #      - ca.example.com
@@ -380,7 +284,7 @@ peers:
 
     tlsCACerts:
       # Certificate location absolute path
-      path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+      path: ${GOPATH}/src/liujian/fabcli/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 
 #   peer1.org1.example.com:
 #     # this URL is used to send endorsement and query requests
@@ -424,7 +328,7 @@ peers:
       allow-insecure: false
 
     tlsCACerts:
-      path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+      path: ${GOPATH}/src/liujian/fabcli/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
 
   peer1.org2.example.com:
     url: peer1.org2.example.com:10051
@@ -443,7 +347,7 @@ peers:
       allow-insecure: false
 
     tlsCACerts:
-      path: /Users/liujian/code/gopath/src/liujian/fabcli/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+      path: ${GOPATH}/src/liujian/fabcli/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
 # certificate management to be done via REST APIs. Application may choose to use a standard
@@ -502,26 +406,26 @@ peers:
 entityMatchers:
   peer:
     - pattern: (\w+).org1.example.(\w+)
-      urlSubstitutionExp: 10.1.81.74:7051
-      eventUrlSubstitutionExp: 10.1.81.74:7053
+      urlSubstitutionExp: 192.168.1.105:7051
+      eventUrlSubstitutionExp: 192.168.1.105:7053
       sslTargetOverrideUrlSubstitutionExp: peer0.org1.example.com
       mappedHost: peer0.org1.example.com
 
     - pattern: (\w+).org2.example.(\w+)
-      urlSubstitutionExp: 10.1.81.74:8051
-      eventUrlSubstitutionExp: 10.1.81.74:8053
+      urlSubstitutionExp: 192.168.1.105:8051
+      eventUrlSubstitutionExp: 192.168.1.105:8053
       sslTargetOverrideUrlSubstitutionExp: peer0.org2.example.com
       mappedHost: peer0.org2.example.com
 
     - pattern: (\w+).example.(\w+)
-      urlSubstitutionExp: 10.1.81.74:7051
-      eventUrlSubstitutionExp: 10.1.81.74:7053
+      urlSubstitutionExp: 192.168.1.105:7051
+      eventUrlSubstitutionExp: 192.168.1.105:7053
       sslTargetOverrideUrlSubstitutionExp: localhost
       mappedHost: peer0.org1.example.com
 
     - pattern: (\w+).example2.(\w+):(\d+)
-      urlSubstitutionExp: 10.1.81.74:7051
-      eventUrlSubstitutionExp: 10.1.81.74:7053
+      urlSubstitutionExp: 192.168.1.105:7051
+      eventUrlSubstitutionExp: 192.168.1.105:7053
       sslTargetOverrideUrlSubstitutionExp: localhost
       mappedHost: peer0.org2.example.com
 
