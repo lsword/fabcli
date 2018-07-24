@@ -29,6 +29,8 @@ import (
 	//"github.com/hyperledger/fabric-sdk-go/pkg/fab"
 	//"github.com/hyperledger/fabric-sdk-go/pkg/msp"
 	rwsetutil "github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/rwsetutil"
+	//contextImpl "github.com/hyperledger/fabric-sdk-go/pkg/context"
+
 
 	fpc "github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/protos/common"
 	//"github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/protos/ledger/rwset"
@@ -118,6 +120,24 @@ func ChannelQueryPeers() string {
 	if err != nil {
 		fmt.Printf("getpeers error:", err)
 	}
+
+	/*
+	chCtx, err := contextImpl.NewChannel(
+		func() (context.Client, error) {
+			return rc.ctx, nil
+		},
+		channelID,
+	)
+	if err != nil {
+		return nil, errors.WithMessage(err, "failed to create channel context")
+	}
+
+	// per channel discovery service
+	discovery, err := chCtx.ChannelService().Discovery()
+	if err != nil {
+		return nil, errors.WithMessage(err, "failed to get discovery service")
+	}
+	*/
 
 	var peerarray []Peer
 
